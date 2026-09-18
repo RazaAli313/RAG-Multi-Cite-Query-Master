@@ -51,10 +51,10 @@ services:
 
   django:
     <<: [*django-build, *common]
-    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "python manage.py runserver 0.0.0.0:8001"
     entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
     ports:
-      - "8000:8000"
+      - "8001:8001"
     volumes:
       - ./:/code
       - ${PROJECT}_static_volume:/code/static
@@ -95,8 +95,9 @@ services:
 
   redis:
     image: redis:7.2-bookworm
+    command: redis-server --port 6380
     ports:
-      - "6379:6379"
+      - "6380:6380"
     volumes:
       - ${PROJECT}_redis_data:/data
     <<: *common

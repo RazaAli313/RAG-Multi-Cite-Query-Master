@@ -29,6 +29,9 @@ urlpatterns = [
     path("api/v1/core/", include("querymaster.core.api.v1.urls")),
     path("api/v1/users/", include("querymaster.users.api.v1.urls")),
     path("api/ai/", include("querymaster.ai.urls")),
+    path("api/v1/documents/", include("querymaster.documents.api.v1.urls")),
+    path("api/v1/faqs/", include("querymaster.faqs.api.v1.urls")),
+    path("api/v1/knowledge/", include("querymaster.knowledge.api.v1.urls")),
     re_path(
         r"^app/confirm-email/(?P<key>[-:\w]+)/$",
         TemplateView.as_view(),

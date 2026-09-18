@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <mxCell id="doc" value="Document" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="40" y="40" width="260" height="246" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_id" value="PK  id : BigAutoField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="30" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_title" value="    title : CharField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="54" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_filename" value="    filename : CharField (unique)" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="78" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_file" value="    file : FileField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="102" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_created" value="    created : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="126" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_modified" value="    modified : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="150" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_status" value="    status : IntegerField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="174" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_activate" value="    activate_date : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="198" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="doc_deactivate" value="    deactivate_date : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="doc">
+      <mxGeometry y="222" width="260" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="docrev" value="DocumentRevision" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="380" y="40" width="260" height="246" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_id" value="PK  id : BigAutoField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="30" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_doc" value="FK  document : FK to Document" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="54" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_version" value="    version : PositiveIntegerField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="78" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_ing" value="    ingestion_status : CharField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="102" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_created" value="    created : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="126" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_modified" value="    modified : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="150" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_status" value="    status : IntegerField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="174" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_activate" value="    activate_date : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="198" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="docrev_deactivate" value="    deactivate_date : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EFF7FF;strokeColor=none;" vertex="1" parent="docrev">
+      <mxGeometry y="222" width="260" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="faq" value="FAQ" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="760" y="40" width="260" height="294" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_id" value="PK  id : BigAutoField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="30" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_title" value="    title : CharField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="54" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_question" value="    question : TextField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="78" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_answer" value="    answer : TextField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="102" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_hash" value="    content_hash : CharField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="126" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_updated" value="    content_updated_at : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="150" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_created" value="    created : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="174" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_modified" value="    modified : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="198" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_status" value="    status : IntegerField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="222" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_activate" value="    activate_date : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="246" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="faq_deactivate" value="    deactivate_date : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#EBF4EA;strokeColor=none;" vertex="1" parent="faq">
+      <mxGeometry y="270" width="260" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="chunk" value="Chunk  (unified — documents + FAQs)" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="480" y="460" width="300" height="318" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_id" value="PK  id : BigAutoField" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="30" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_ct" value="FK  content_type : FK to ContentType" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="54" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_oid" value="    object_id : PositiveIntegerField" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="78" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_heading" value="    heading : CharField (null)" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="102" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_page" value="    page_number : IntegerField (null)" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="126" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_pos" value="    position : IntegerField (null)" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="150" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_idx" value="    chunk_index : PositiveIntegerField" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="174" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_text" value="    text : TextField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="198" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_emb" value="    embedding : VectorField(768)" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="222" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_active" value="    is_active : BooleanField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="246" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_hash" value="    content_hash : CharField" style="text;align=left;spacingLeft=8;fillColor=#F5EFF9;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="270" width="300" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="chunk_updated" value="    content_updated_at : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chunk">
+      <mxGeometry y="294" width="300" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="chatsession" value="ChatSession" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="900" y="460" width="260" height="126" as="geometry" />
+    </mxCell>
+    <mxCell id="cs_id" value="PK  id : UUIDField" style="text;align=left;spacingLeft=8;fillColor=#FFF4E6;strokeColor=none;" vertex="1" parent="chatsession">
+      <mxGeometry y="30" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="cs_ended" value="    ended_at : DateTimeField (null)" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chatsession">
+      <mxGeometry y="54" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="cs_created" value="    created : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#FFF4E6;strokeColor=none;" vertex="1" parent="chatsession">
+      <mxGeometry y="78" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="cs_modified" value="    modified : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="chatsession">
+      <mxGeometry y="102" width="260" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="querylog" value="QueryLog" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+      <mxGeometry x="900" y="680" width="260" height="198" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_id" value="PK  id : BigAutoField" style="text;align=left;spacingLeft=8;fillColor=#FCF0F0;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="30" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_session" value="FK  session : FK to ChatSession" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="54" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_query" value="    query : TextField" style="text;align=left;spacingLeft=8;fillColor=#FCF0F0;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="78" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_answer" value="    answer : TextField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="102" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_citations" value="    citations : JSONField" style="text;align=left;spacingLeft=8;fillColor=#FCF0F0;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="126" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_created" value="    created : DateTimeField" style="text;align=left;spacingLeft=8;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="150" width="260" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="ql_modified" value="    modified : DateTimeField" style="text;align=left;spacingLeft=8;fillColor=#FCF0F0;strokeColor=none;" vertex="1" parent="querylog">
+      <mxGeometry y="174" width="260" height="24" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel_doc_docrev" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERmany;startArrow=ERmandOne;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="doc" target="docrev" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel_docrev_chunk" value="Generic FK" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERmany;startArrow=ERmandOne;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;fontSize=10;fontStyle=2;" edge="1" source="docrev" target="chunk" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel_faq_chunk" value="Generic FK" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERmany;startArrow=ERmandOne;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;fontSize=10;fontStyle=2;" edge="1" source="faq" target="chunk" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="rel_session_querylog" style="edgeStyle=entityRelationEdgeStyle;endArrow=ERmany;startArrow=ERmandOne;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="chatsession" target="querylog" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

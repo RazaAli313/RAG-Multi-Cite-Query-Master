@@ -19,3 +19,4 @@ djangorestframework-simplejwt==5.5.*
 factory-boy==3.3.*
 django-health-check==3.24.*
 django-fsm==3.0.*
+pgvector==0.4.*
