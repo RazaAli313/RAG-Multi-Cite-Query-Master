@@ -1,0 +1,6 @@
+[run]
+source=.
+omit=*/config/*, manage.py, */migrations/*, */management/*, */urls.py */admin.py
+
+[report]
+skip_empty=True

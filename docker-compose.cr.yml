@@ -1,0 +1,10 @@
+version: "3.4"
+
+services:
+  cr:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.cr
+    command: bash -c "/code/scripts/cr.sh"
+    volumes:
+      - ./:/code

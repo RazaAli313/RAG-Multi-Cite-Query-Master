@@ -1,0 +1,19 @@
+name: test-cases
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  django-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: django-coverage-report
+          path: htmlcov
+          retention-days: 7

@@ -1,0 +1,147 @@
+version: "3.4"
+
+x-common: &common
+  stdin_open: true
+  tty: true
+  restart: unless-stopped
+
+x-django-build: &django-build
+  build:
+    context: .
+    args:
+      REQUIREMENT_FILE: $REQUIREMENT_FILE
+
+services:
+  infisical-agent:
+    image: infisical/infisical:latest
+    user: "root"
+    entrypoint: ["/bin/sh", "/scripts/infisical-agent-entrypoint.sh"]
+    env_file:
+      - .env
+    volumes:
+      - ./scripts:/scripts:ro
+      - infisical-secrets:/secrets
+    restart: unless-stopped
+
+  celery:
+    <<: [*django-build, *common]
+    command: bash -c "NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program celery -A $PROJECT worker -l info"
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    depends_on:
+      - django
+      - redis
+      - infisical-agent
+    volumes:
+      - ./:/code
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+
+  celery_beat:
+    <<: [*django-build, *common]
+    command: bash -c "NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program celery -A $PROJECT beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    depends_on:
+      - django
+      - redis
+      - infisical-agent
+    volumes:
+      - ./:/code
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    <<: *common
+
+  django:
+    <<: [*django-build, *common]
+    command: bash -c "NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers $GUNICORN_WORKERS --worker-class gthread --threads $GUNICORN_THREADS"
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    ports:
+      - "8000"
+    volumes:
+      - ./:/code
+      - ${PROJECT}_static_volume:/code/static
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+    depends_on:
+      - postgres
+      - redis
+      - infisical-agent
+
+  flower:
+    <<: [*django-build, *common]
+    command: bash -c "NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program celery -A $PROJECT flower --conf=/code/config/settings/flowerconfig.py"
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    ports:
+      - "5555"
+    depends_on:
+      - celery
+      - redis
+      - infisical-agent
+    volumes:
+      - .:/code/
+      - infisical-secrets:/secrets:ro
+
+  newrelic:
+    image: newrelic/infrastructure:latest
+    cap_add:
+      - SYS_PTRACE
+    network_mode: host
+    pid: host
+    privileged: true
+    volumes:
+      - "/:/host:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      NRIA_LICENSE_KEY: $NRIA_LICENSE_KEY
+
+  nginx:
+    image: nginx:1.20.1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx/stage.conf:/etc/nginx/conf.d/default.conf
+      - ${PROJECT}_static_volume:/code/static
+      - ${PROJECT}_media_volume:/code/media
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    depends_on:
+      - django
+      - flower
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    <<: *common
+
+  postgres:
+    image: postgres:15.4-bookworm
+    entrypoint: ["/bin/sh", "/scripts/docker-entrypoint.sh", "docker-entrypoint.sh"]
+    command: postgres
+    ports:
+      - "5432"
+    volumes:
+      - ${PROJECT}_postgres_data:/var/lib/postgresql/data/
+      - ./scripts:/scripts:ro
+      - infisical-secrets:/secrets:ro
+    depends_on:
+      - infisical-agent
+    <<: *common
+
+  redis:
+    image: redis:7.2-bookworm
+    ports:
+      - "6379"
+    volumes:
+      - ${PROJECT}_redis_data:/data
+    <<: *common
+
+volumes:
+  querymaster_postgres_data:
+  querymaster_redis_data:
+  querymaster_static_volume:
+  querymaster_media_volume:
+  infisical-secrets:

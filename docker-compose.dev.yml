@@ -1,0 +1,109 @@
+version: "3.4"
+
+x-common: &common
+  stdin_open: true
+  tty: true
+  restart: unless-stopped
+
+x-django-build: &django-build
+  build:
+    context: .
+    args:
+      REQUIREMENT_FILE: $REQUIREMENT_FILE
+
+services:
+  infisical-agent:
+      image: infisical/infisical:latest
+      user: "root"
+      entrypoint: ["/bin/sh", "/scripts/infisical-agent-entrypoint.sh"]
+      env_file:
+        - .env
+      volumes:
+        - ./scripts:/scripts:ro
+        - infisical-secrets:/secrets
+      restart: unless-stopped
+
+  celery:
+    <<: [*django-build, *common]
+    command: celery -A $PROJECT worker -l info
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    depends_on:
+      - django
+      - redis
+      - infisical-agent
+    volumes:
+      - ./:/code
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+
+  celery_beat:
+    <<: [*django-build, *common]
+    command: celery -A $PROJECT beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    depends_on:
+      - django
+      - redis
+      - infisical-agent
+    volumes:
+      - ./:/code
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+
+  django:
+    <<: [*django-build, *common]
+    command: bash -c "python manage.py runserver 0.0.0.0:8000"
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/code
+      - ${PROJECT}_static_volume:/code/static
+      - ${PROJECT}_media_volume:/code/media
+      - infisical-secrets:/secrets:ro
+    depends_on:
+      - postgres
+      - redis
+      - infisical-agent
+
+  flower:
+    <<: [*django-build, *common]
+    command: celery -A $PROJECT flower --conf=/code/config/settings/flowerconfig.py
+    entrypoint: ["/bin/sh", "/code/scripts/docker-entrypoint.sh"]
+    ports:
+      - "5555:5555"
+    depends_on:
+      - celery
+      - redis
+      - infisical-agent
+    volumes:
+      - .:/code/
+      - infisical-secrets:/secrets:ro
+
+  postgres:
+    image: postgres:15.4-bookworm
+    entrypoint: ["/bin/sh", "/scripts/docker-entrypoint.sh", "docker-entrypoint.sh"]
+    command: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${PROJECT}_postgres_data:/var/lib/postgresql/data/
+      - ./scripts:/scripts:ro
+      - infisical-secrets:/secrets:ro
+    depends_on:
+      - infisical-agent
+    <<: *common
+
+  redis:
+    image: redis:7.2-bookworm
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${PROJECT}_redis_data:/data
+    <<: *common
+
+volumes:
+  querymaster_postgres_data:
+  querymaster_redis_data:
+  querymaster_static_volume:
+  querymaster_media_volume:
+  infisical-secrets:

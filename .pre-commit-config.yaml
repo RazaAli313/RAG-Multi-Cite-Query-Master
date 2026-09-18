@@ -1,0 +1,32 @@
+default_language_version:
+  python: python3
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-yaml
+        args: ["--unsafe"]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  # Ruff - replaces black, isort, flake8, and more
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.11
+    hooks:
+      # Run the linter
+      - id: ruff
+        args: [--fix, --select, I, --exit-non-zero-on-fix]
+      # Run the formatter (replaces black)
+      - id: ruff-format
+
+  - repo: https://github.com/adamchainz/blacken-docs
+    rev: 1.20.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [black==24.10.0]

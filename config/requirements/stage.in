@@ -1,0 +1,6 @@
+-r base.in
+
+gunicorn[gthread]==20.1.*
+sentry-sdk==1.6.*
+django-anymail[brevo]==15.*
+newrelic==9.5.*
