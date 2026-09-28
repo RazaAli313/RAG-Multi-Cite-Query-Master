@@ -271,5 +271,6 @@ EMBEDDING_PROVIDER = config("EMBEDDING_PROVIDER", default="gemini")
 EMBEDDING_MODEL = config("EMBEDDING_MODEL", default="models/gemini-embedding-001")
 EMBEDDING_DIMENSIONS = config("EMBEDDING_DIMENSIONS", default=1536, cast=int)
 GENERATION_MODEL = config("GENERATION_MODEL", default="gemini-2.5-flash")
+LLM_PROVIDER = config("LLM_PROVIDER", default="gemini")
 
 from .constance import *  # noqa
