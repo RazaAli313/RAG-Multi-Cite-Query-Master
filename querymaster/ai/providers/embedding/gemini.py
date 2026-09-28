@@ -1,7 +1,7 @@
 from django.conf import settings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
-from querymaster.core.providers.embedding.base import BaseEmbeddingProvider
+from querymaster.ai.providers.embedding.base import BaseEmbeddingProvider
 
 
 class GeminiEmbeddingProvider(BaseEmbeddingProvider):

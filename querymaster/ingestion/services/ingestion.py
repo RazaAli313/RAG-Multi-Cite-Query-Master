@@ -1,7 +1,7 @@
 from django.contrib.contenttypes.models import ContentType
 
-from querymaster.core.providers.embedding.factory import get_embedding_provider
-from querymaster.core.services.activation import activate_chunk
+from querymaster.ai.providers.embedding.factory import get_embedding_provider
+from querymaster.ingestion.services.activation import activate_chunk
 from querymaster.knowledge.models import Chunk
 
 

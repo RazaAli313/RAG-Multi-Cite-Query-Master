@@ -2,7 +2,7 @@ import logging
 
 from celery import shared_task
 
-from querymaster.core.services.ingestion import ingest_chunk
+from querymaster.ingestion.services.ingestion import ingest_chunk
 from querymaster.faqs.choices import IngestionStatus
 from querymaster.faqs.models import FAQ
 from querymaster.faqs.services.chunking import build_faq_chunk

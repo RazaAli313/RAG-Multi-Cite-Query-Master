@@ -52,7 +52,16 @@ THIRD_PARTY_APPS = [
     "health_check.contrib.redis",
 ]
 
-CUSTOM_APPS = ["querymaster.core", "querymaster.users", "querymaster.faqs", "querymaster.knowledge"]
+CUSTOM_APPS = [
+    "querymaster.core",
+    "querymaster.users",
+    "querymaster.faqs",
+    "querymaster.knowledge",
+    "querymaster.ai",
+    "querymaster.ingestion",
+    "querymaster.retrieval",
+    "querymaster.conversations",
+]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -261,5 +270,6 @@ GEMINI_API_KEY = config("GEMINI_API_KEY")
 EMBEDDING_PROVIDER = config("EMBEDDING_PROVIDER", default="gemini")
 EMBEDDING_MODEL = config("EMBEDDING_MODEL", default="models/gemini-embedding-001")
 EMBEDDING_DIMENSIONS = config("EMBEDDING_DIMENSIONS", default=1536, cast=int)
+GENERATION_MODEL = config("GENERATION_MODEL", default="gemini-2.5-flash")
 
 from .constance import *  # noqa
