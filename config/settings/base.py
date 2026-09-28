@@ -52,7 +52,7 @@ THIRD_PARTY_APPS = [
     "health_check.contrib.redis",
 ]
 
-CUSTOM_APPS = ["querymaster.users", "querymaster.faqs", "querymaster.knowledge"]
+CUSTOM_APPS = ["querymaster.core", "querymaster.users", "querymaster.faqs", "querymaster.knowledge"]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 

@@ -1,7 +1,7 @@
 from django.conf import settings
 
-from querymaster.knowledge.providers.embedding.base import BaseEmbeddingProvider
-from querymaster.knowledge.providers.embedding.gemini import GeminiEmbeddingProvider
+from querymaster.core.providers.embedding.base import BaseEmbeddingProvider
+from querymaster.core.providers.embedding.gemini import GeminiEmbeddingProvider
 
 
 def get_embedding_provider() -> BaseEmbeddingProvider:

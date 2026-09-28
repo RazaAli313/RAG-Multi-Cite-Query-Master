@@ -137,4 +137,5 @@ dmypy.json
 .vscode/
 .DS_Store
 data/
+output/
 uv.lock

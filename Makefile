@@ -6,6 +6,7 @@ dev_compose    := docker compose -f docker-compose.dev.yml
 stage_compose  := docker compose -f docker-compose.stage.yml
 prod_compose   := docker compose -f docker-compose.prod.yml
 test_compose   := docker compose -f docker-compose.test.yml --env-file config/env/.test
+corpus_image   := querymaster-corpus-analysis:2.129.0
 success        := success
 secrets        := . /secrets/app.env &&
 
@@ -78,6 +79,31 @@ test:
 	@$($@_compose) exec -T django python -m coverage run --source=. manage.py test --no-input
 	@$($@_compose) exec -T django python -m coverage html -d htmlcov
 	@$($@_compose) down --remove-orphans
+
+corpus.build:
+	@docker build --file Dockerfile.corpus --tag $(corpus_image) .
+
+corpus.versions:
+	@docker run --rm $(corpus_image) python -c 'from importlib.metadata import version; print("docling", version("docling"))'
+	@docker run --rm $(corpus_image) tesseract --version
+	@docker run --rm $(corpus_image) tesseract --list-langs
+
+corpus.test:
+	@docker run --rm --network none \
+		--volume "$(CURDIR)/scripts:/workspace/scripts:ro" \
+		--volume "$(CURDIR)/tests:/workspace/tests:ro" \
+		$(corpus_image) python -m unittest discover --start-directory tests --pattern 'test_corpus_analysis.py'
+
+corpus.analyze:
+	@mkdir -p output
+	@docker run --rm --network none \
+		--volume "$(CURDIR)/data:/workspace/data:ro" \
+		--volume "$(CURDIR)/output:/workspace/output" \
+		--volume "$(CURDIR)/scripts:/workspace/scripts:ro" \
+		$(corpus_image) python scripts/analyze_corpus.py \
+			--input data \
+			--output output/corpus-analysis.md \
+			$(if $(MAX_FILES),--max-files $(MAX_FILES),)
 
 %.psql:
 	@$($*_compose) exec postgres psql -U postgres

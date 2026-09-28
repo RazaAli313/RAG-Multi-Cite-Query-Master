@@ -1,0 +1,30 @@
+FROM python:3.10-bookworm
+
+ARG DOCLING_VERSION=2.129.0
+
+ENV DOCLING_ARTIFACTS_PATH=/opt/docling/models \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends tesseract-ocr tesseract-ocr-eng \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip
+
+RUN pip install torch==2.9.1 torchvision==0.24.1 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+RUN pip install "docling==${DOCLING_VERSION}"
+
+RUN docling-tools models download layout tableformer \
+    --output-dir "${DOCLING_ARTIFACTS_PATH}"
+
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends libgl1 libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV HF_HUB_OFFLINE=1 \
+    TRANSFORMERS_OFFLINE=1
+
+WORKDIR /workspace

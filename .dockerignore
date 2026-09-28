@@ -18,11 +18,13 @@
 __pycache__
 dist
 docs
+data
 env
 logs
 src/{{ project_name }}/settings/local.py
 src/node_modules
 media
+output
 static
 stats
 Dockerfile
