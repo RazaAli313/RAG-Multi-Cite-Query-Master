@@ -257,4 +257,8 @@ if config("ENABLE_OTP", cast=bool):
     ACCOUNT_ADAPTER = "querymaster.users.adapter.DefaultAccountAdapter"
     ACCOUNT_EMAIL_CONFIRMATION_HMAC = False
 
+GEMINI_API_KEY = config("GEMINI_API_KEY")
+EMBEDDING_PROVIDER = config("EMBEDDING_PROVIDER", default="gemini")
+EMBEDDING_MODEL = config("EMBEDDING_MODEL", default="models/text-embedding-004")
+
 from .constance import *  # noqa
