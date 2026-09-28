@@ -10,6 +10,7 @@ class GeminiEmbeddingProvider(BaseEmbeddingProvider):
         self.client = GoogleGenerativeAIEmbeddings(
             model=settings.EMBEDDING_MODEL,
             google_api_key=settings.GEMINI_API_KEY,
+            output_dimensionality=settings.EMBEDDING_DIMENSIONS,
         )
 
     def embed(self, text: str) -> list[float]:

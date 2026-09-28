@@ -12,6 +12,6 @@ class Chunk(models.Model):
 
     raw_text = models.TextField()
     chunk_hash = models.CharField(max_length=64)
-    embedding = VectorField(dimensions=768)
+    embedding = VectorField(dimensions=1536)
     is_active = models.BooleanField(default=False)
     position = models.PositiveIntegerField(default=0)

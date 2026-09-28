@@ -259,6 +259,7 @@ if config("ENABLE_OTP", cast=bool):
 
 GEMINI_API_KEY = config("GEMINI_API_KEY")
 EMBEDDING_PROVIDER = config("EMBEDDING_PROVIDER", default="gemini")
-EMBEDDING_MODEL = config("EMBEDDING_MODEL", default="models/text-embedding-004")
+EMBEDDING_MODEL = config("EMBEDDING_MODEL", default="models/gemini-embedding-001")
+EMBEDDING_DIMENSIONS = config("EMBEDDING_DIMENSIONS", default=1536, cast=int)
 
 from .constance import *  # noqa
