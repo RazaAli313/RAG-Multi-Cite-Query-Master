@@ -1,0 +1,12 @@
+import hashlib
+
+from querymaster.faqs.models import FAQ
+
+
+def build_faq_chunk(faq: FAQ) -> dict:
+    raw_text = f"Question: {faq.question}\nAnswer: {faq.answer}"
+    chunk_hash = hashlib.sha256(raw_text.encode()).hexdigest()
+    return {
+        "raw_text": raw_text,
+        "chunk_hash": chunk_hash,
+    }
