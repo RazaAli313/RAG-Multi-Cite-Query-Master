@@ -15,4 +15,4 @@ class GeminiLLMProvider(BaseLLMProvider):
 
     def generate(self, messages: list[BaseMessage]) -> str:
         response = self.client.invoke(messages)
-        return response.content
+        return response.text

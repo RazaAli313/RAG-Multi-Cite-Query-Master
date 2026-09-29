@@ -21,3 +21,4 @@ django-health-check==3.24.*
 django-fsm==3.0.*
 pgvector==0.4.*
 langchain-google-genai
+langgraph

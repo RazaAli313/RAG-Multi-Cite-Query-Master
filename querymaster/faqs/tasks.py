@@ -20,6 +20,7 @@ def ingest_faq(faq_id: int) -> None:
             source_instance=faq,
             raw_text=chunk_data["raw_text"],
             chunk_hash=chunk_data["chunk_hash"],
+            embed_text=chunk_data["embed_text"],
         )
         faq.ingestion_status = IngestionStatus.SUCCESS
         faq.save(update_fields=["ingestion_status"])

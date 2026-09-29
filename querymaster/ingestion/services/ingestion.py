@@ -5,7 +5,7 @@ from querymaster.ingestion.services.activation import activate_chunk
 from querymaster.knowledge.models import Chunk
 
 
-def ingest_chunk(source_instance, raw_text: str, chunk_hash: str) -> None:
+def ingest_chunk(source_instance, raw_text: str, chunk_hash: str, embed_text: str) -> None:
     content_type = ContentType.objects.get_for_model(source_instance)
 
     existing_chunk = Chunk.objects.filter(
@@ -18,7 +18,7 @@ def ingest_chunk(source_instance, raw_text: str, chunk_hash: str) -> None:
         activate_chunk(existing_chunk, source_instance)
         return
 
-    embedding = get_embedding_provider().embed(raw_text)
+    embedding = get_embedding_provider().embed(embed_text)
 
     new_chunk = Chunk.objects.create(
         content_type=content_type,

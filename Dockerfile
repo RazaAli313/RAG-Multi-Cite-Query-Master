@@ -11,3 +11,4 @@ WORKDIR /code
 COPY $REQUIREMENT_FILE /code/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r /code/requirements.txt
+RUN pip install langgraph langchain-google-genai
